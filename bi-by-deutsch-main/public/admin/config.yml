@@ -1,0 +1,75 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "src/pages/articles"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/ArticleLayout.astro" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", hint: "Short summary for article cards and SEO (1-2 sentences)" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "DAX Patterns"
+          - "Data Modeling"
+          - "Power BI"
+          - "SSAS Tabular"
+          - "Best Practices"
+          - "Tutorials"
+      - { label: "Author", name: "author", widget: "hidden", default: "Avi Deutsch" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Homepage"
+        name: "homepage"
+        file: "src/data/homepage.json"
+        fields:
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "Hero Title (bold part)", name: "heroTitle", widget: "string" }
+          - { label: "Hero Title (light part)", name: "heroTitleAccent", widget: "string" }
+          - { label: "Hero Description", name: "heroDescription", widget: "text" }
+          - { label: "About — Paragraph 1", name: "aboutText", widget: "text" }
+          - { label: "About — Paragraph 2", name: "aboutText2", widget: "text" }
+          - { label: "Stat 1 Number", name: "stat1Number", widget: "string" }
+          - { label: "Stat 1 Label", name: "stat1Label", widget: "string" }
+          - { label: "Stat 2 Number", name: "stat2Number", widget: "string" }
+          - { label: "Stat 2 Label", name: "stat2Label", widget: "string" }
+          - { label: "Stat 3 Number", name: "stat3Number", widget: "string" }
+          - { label: "Stat 3 Label", name: "stat3Label", widget: "string" }
+          - { label: "Stat 4 Number", name: "stat4Number", widget: "string" }
+          - { label: "Stat 4 Label", name: "stat4Label", widget: "string" }
+
+      - label: "Contact Page"
+        name: "contact"
+        file: "src/data/contact.json"
+        fields:
+          - { label: "Page Heading", name: "heading", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "LinkedIn URL", name: "linkedinUrl", widget: "string" }
+          - { label: "LinkedIn Display Name", name: "linkedinLabel", widget: "string" }
+
+      - label: "Site Settings"
+        name: "site"
+        file: "src/data/site.json"
+        fields:
+          - { label: "Site Name", name: "siteName", widget: "string" }
+          - { label: "Footer Copyright Name", name: "footerCopyright", widget: "string" }
+          - { label: "Courses Page Heading", name: "coursesHeading", widget: "string" }
+          - { label: "Courses Page Description", name: "coursesDescription", widget: "text" }
