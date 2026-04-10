@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import homepage from '../data/homepage.json';
+
+// Get all articles sorted by date
+const articleFiles = import.meta.glob('./articles/*.md', { eager: true });
+const allArticles = Object.values(articleFiles) as any[];
+const sortedArticles = allArticles
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 3);
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout title="Home" activePage="home">
+
+  <!-- Hero Section -->
+  <section class="container hero">
+    <div>
+      <p class="hero-subtitle">{homepage.heroSubtitle}</p>
+      <h1>{homepage.heroTitle} <span class="light">{homepage.heroTitleAccent}</span></h1>
+      <p class="hero-description">{homepage.heroDescription}</p>
+      <div class="hero-buttons">
+        <a href="/articles" class="btn-primary">Read the articles &rarr;</a>
+        <a href="/contact" class="btn-outline">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="/images/avi-deutsch.jpg" alt="Avi Deutsch — BI Consultant & Mentor" />
+    </div>
+  </section>
+
+  <div class="container"><hr class="section-divider" /></div>
+
+  <!-- About Section -->
+  <section class="container section">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div>
+        <p class="about-text">{homepage.aboutText}</p>
+        <p class="about-text" style="margin-top: 16px;">{homepage.aboutText2}</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{homepage.stat1Number}</div>
+          <div class="stat-label">{homepage.stat1Label}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{homepage.stat2Number}</div>
+          <div class="stat-label">{homepage.stat2Label}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{homepage.stat3Number}</div>
+          <div class="stat-label">{homepage.stat3Label}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{homepage.stat4Number}</div>
+          <div class="stat-label">{homepage.stat4Label}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="section-divider" /></div>
+
+  <!-- Latest Articles -->
+  <section class="container section">
+    <div class="section-header">
+      <p class="section-label">Latest articles</p>
+      <a href="/articles" class="link-arrow">
+        View all <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+    <div class="articles-grid">
+      {sortedArticles.map((article) => (
+        <a href={article.url} class="article-card">
+          <span class="tag">{article.frontmatter.category}</span>
+          <h3>{article.frontmatter.title}</h3>
+          <p class="card-description">{article.frontmatter.description}</p>
+          <div class="card-footer">
+            <span class="meta">{formatDate(article.frontmatter.date)}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

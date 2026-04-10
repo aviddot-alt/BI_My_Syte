@@ -1,0 +1,16 @@
+{
+  "heroSubtitle": "BI Consultant & Mentor",
+  "heroTitle": "Making sense of",
+  "heroTitleAccent": "DAX & data modeling",
+  "heroDescription": "I help BI professionals and analysts master DAX, build efficient data models, and get the most out of Power BI. Through in-depth articles, hands-on courses, and real-world examples.",
+  "aboutText": "With extensive experience in Business Intelligence, I specialize in DAX, data modeling, and the Microsoft BI stack. Currently leading the BI transformation at Tidhar Group, one of Israel's largest real estate groups, I architect enterprise-grade Power BI solutions and drive data-driven decision making across the organization.",
+  "aboutText2": "My goal is to make complex BI concepts accessible and practical — whether you're just starting with Power BI or building advanced DAX patterns for enterprise analytics.",
+  "stat1Number": "10+",
+  "stat1Label": "Years in BI & analytics",
+  "stat2Number": "50+",
+  "stat2Label": "Projects delivered",
+  "stat3Number": "DAX",
+  "stat3Label": "Deep specialization",
+  "stat4Number": "Power BI",
+  "stat4Label": "SSAS · Tabular · Modeling"
+}

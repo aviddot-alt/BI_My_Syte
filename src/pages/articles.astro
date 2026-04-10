@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const articleFiles = import.meta.glob('./articles/*.md', { eager: true });
+const allArticles = Object.values(articleFiles) as any[];
+const sortedArticles = allArticles
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout title="Articles" activePage="articles" description="In-depth articles about DAX, data modeling, and Power BI best practices.">
+
+  <div class="container">
+    <div style="padding-top: 64px;">
+      <h1 class="page-title">Articles</h1>
+      <p class="page-subtitle">Deep dives into DAX patterns, data modeling strategies, and Power BI best practices.</p>
+    </div>
+
+    <div class="articles-grid">
+      {sortedArticles.map((article) => (
+        <a href={article.url} class="article-card">
+          <span class="tag">{article.frontmatter.category}</span>
+          <h3>{article.frontmatter.title}</h3>
+          <p class="card-description">{article.frontmatter.description}</p>
+          <div class="card-footer">
+            <span class="meta">{formatDate(article.frontmatter.date)}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {sortedArticles.length === 0 && (
+      <div style="text-align: center; padding: 80px 0; color: var(--color-text-tertiary);">
+        <p style="font-size: 17px;">Articles are on the way. Check back soon.</p>
+      </div>
+    )}
+  </div>
+
+  <div style="height: 80px;"></div>
+
+</BaseLayout>

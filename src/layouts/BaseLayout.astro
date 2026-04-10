@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import site from '../data/site.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  activePage?: string;
+}
+
+const { title, description = 'BI Consultant & Mentor specializing in DAX, data modeling, and Power BI.', activePage = '' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} | {site.siteName}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="pipe">|</span> {site.siteName}
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class={activePage === 'home' ? 'active' : ''}>Home</a></li>
+        <li><a href="/articles" class={activePage === 'articles' ? 'active' : ''}>Articles</a></li>
+        <li><a href="/courses" class={activePage === 'courses' ? 'active' : ''}>Courses</a></li>
+        <li><a href="/contact" class={activePage === 'contact' ? 'active' : ''}>Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; {new Date().getFullYear()} {site.footerCopyright}. All rights reserved.</span>
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/avi-deutsch-759233144/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    toggle?.addEventListener('click', () => {
+      links?.classList.toggle('open');
+    });
+  </script>
+
+  <script is:inline>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', function(user) {
+        if (!user) {
+          window.netlifyIdentity.on('login', function() {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
